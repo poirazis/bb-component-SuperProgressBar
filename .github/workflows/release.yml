@@ -24,7 +24,7 @@ jobs:
         run: |
           release_version=$(jq -r '.version' package.json)
           echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
-          yarn install --frozen-lockfile
+          yarn install
           yarn build
       - name: Perform GitHub Release
         uses: softprops/action-gh-release@v2

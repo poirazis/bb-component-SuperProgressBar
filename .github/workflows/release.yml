@@ -11,22 +11,28 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      packages: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensures full history for release notes
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
-      - name: Make the production plugin bundle
+          cache: "yarn"
+      - name: Install dependencies and build the production plugin bundle
         run: |
-          release_version=$(cat package.json | jq -r '.version')
+          release_version=$(jq -r '.version' package.json)
           echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
-          yarn
+          yarn install --frozen-lockfile
           yarn build
-      - name: Perform Github Release
-        uses: softprops/action-gh-release@v1
+      - name: Perform GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
           name: v${{ env.RELEASE_VERSION }}
           tag_name: v${{ env.RELEASE_VERSION }}
           generate_release_notes: true
           files: |
             dist/*.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -3,14 +3,111 @@
   "metadata": {},
   "schema": {
     "name": "bb-component-SuperProgressBar",
-    "friendlyName": "bb-component-SuperProgressBar",
+    "friendlyName": "Super Progress Bar",
     "description": "A Progress Bar component for Budibase",
-    "icon": "Text",
+    "author": "Michael Poirazi",
+    "icon": "Histogram",
     "settings": [
       {
         "type": "text",
-        "key": "text",
-        "label": "Text"
+        "key": "label",
+        "label": "Label"
+      },
+      {
+        "type": "select",
+        "key": "type",
+        "label": "Type",
+        "defaultValue": "percentage",
+        "options": [
+          {
+            "label": "Percentage",
+            "value": "percentage"
+          },
+          {
+            "label": "Value",
+            "value": "value"
+          },
+          {
+            "label": "Progress",
+            "value": "progress"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "key": "value",
+        "label": "Value"
+      },
+      {
+        "type": "text",
+        "key": "valuePrefix",
+        "label": "Value Prefix",
+        "dependsOn": {
+          "setting": "type",
+          "value": "percentage",
+          "invert": true
+        }
+      },
+      {
+        "type": "text",
+        "key": "valueSuffix",
+        "label": "Value Suffix",
+        "dependsOn": {
+          "setting": "type",
+          "value": "percentage",
+          "invert": true
+        }
+      },
+      {
+        "type": "text",
+        "key": "min",
+        "label": "Min Value",
+        "placeholder": "0"
+      },
+      {
+        "type": "text",
+        "key": "max",
+        "label": "Max Value",
+        "placeholder": "100"
+      },
+      {
+        "type": "number",
+        "key": "decimals",
+        "label": "Decimals",
+        "defaultValue": 0
+      },
+      {
+        "type": "select",
+        "key": "size",
+        "label": "Size",
+        "defaultValue": "m",
+        "options": [
+          {
+            "label": "Small",
+            "value": "s"
+          },
+          {
+            "label": "Medium",
+            "value": "m"
+          },
+          {
+            "label": "Large",
+            "value": "l"
+          }
+        ]
+      },
+
+      {
+        "type": "color",
+        "key": "color",
+        "label": "Color",
+        "defaultValue": "var(--spectrum-global-color-green-600)"
+      },
+      {
+        "type": "color",
+        "key": "trackColor",
+        "label": "Track Color",
+        "defaultValue": "var(--spectrum-global-color-gray-200)"
       }
     ]
   }

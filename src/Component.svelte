@@ -17,8 +17,11 @@
   const component = getContext("component");
 
   $: percentage =
-    value !== null && value !== "" ? ((value - min) / (max - min)) * 100 : null;
-  $: isIndeterminate = value === null || value === "";
+    value !== null && value !== "" && value > min
+      ? ((value - min) / (max - min)) * 100
+      : null;
+  $: isIndeterminate = value === null || (value == 0 && max == 0);
+
   $: formattedValue =
     value !== null && value !== "" ? Number(value).toFixed(decimals) : value;
   $: formattedPercentage =
